@@ -1,7 +1,7 @@
 package com.marketplace.project.controllers;
 
-import com.marketplace.project.entities.User;
-import com.marketplace.project.services.UserService;
+import com.marketplace.project.controllers.model.User;
+import com.marketplace.project.services.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping(path="/demo") // This means URL's start with /demo (after Application path)
 public class WorkWithDBController {
 
-    private UserService userService;
+    private UserServiceImpl userServiceImpl;
 
     @Autowired
-    public WorkWithDBController(UserService userService) {
-        this.userService = userService;
+    public WorkWithDBController(UserServiceImpl userServiceImpl) {
+        this.userServiceImpl = userServiceImpl;
     }
 
     @GetMapping(path="/add") // Map ONLY GET Requests
@@ -29,13 +29,13 @@ public class WorkWithDBController {
         User user = new User();
         user.setName(name);
         user.setEmail(email);
-        userService.save(user);
+        userServiceImpl.save(user);
         return "Saved";
     }
 
     @GetMapping(path="/all")
     public @ResponseBody Iterable<User> getAllUsers() {
         // This returns a JSON or XML with the users
-        return userService.findAll();
+        return userServiceImpl.findAll();
     }
 }

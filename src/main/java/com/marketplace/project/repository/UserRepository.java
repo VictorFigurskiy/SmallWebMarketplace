@@ -1,6 +1,6 @@
-package com.marketplace.project.dao;
+package com.marketplace.project.repository;
 
-import com.marketplace.project.entities.User;
+import com.marketplace.project.controllers.model.User;
 import org.springframework.data.repository.CrudRepository;
 
 // This will be AUTO IMPLEMENTED by Spring into a Bean called userRepository
