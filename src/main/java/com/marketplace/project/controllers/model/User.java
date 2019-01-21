@@ -1,12 +1,18 @@
 package com.marketplace.project.controllers.model;
 
+import org.springframework.util.CollectionUtils;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.EnumSet;
+import java.util.Set;
 
 @Entity
-public class User {
+public class User extends AbstractBaseEntity{
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -23,6 +29,8 @@ public class User {
     private String phone;
 
     private String lastName;
+
+    private Set<Role> roles;
 
     public String getCity() {
         return city;
@@ -80,6 +88,14 @@ public class User {
         this.email = email;
     }
 
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Collection<Role> roles) {
+        this.roles = CollectionUtils.isEmpty(roles) ? Collections.emptySet() : EnumSet.copyOf(roles);
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -90,6 +106,7 @@ public class User {
                 ", password='" + password + '\'' +
                 ", phone='" + phone + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", roles=" + roles +
                 '}';
     }
 }

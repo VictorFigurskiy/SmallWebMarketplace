@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
-public class Offer {
+public class Offer extends AbstractBaseEntity {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)

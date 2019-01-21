@@ -16,42 +16,50 @@ public class UserTo extends BaseTo implements Serializable {
     @NotBlank
     @Size(min = 2, max = 100)
     @SafeHtml
-    private String name;
+    private String city;
+
 
     @Email
     @NotBlank
     @Size(max = 100)
-    @SafeHtml // https://stackoverflow.com/questions/17480809
+    @SafeHtml
     private String email;
+
+
+    @NotBlank
+    @Size(min = 2, max = 100)
+    @SafeHtml
+    private String name;
+
 
     @Size(min = 5, max = 32, message = "length must between 5 and 32 characters")
     private String password;
 
+    @Size(min = 13, max = 13, message = "length must between +380xxxxxxxxx characters")
+    private String phone;
 
-    public UserTo() {
-    }
 
-    public UserTo(Integer id, String name, String email, String password, int caloriesPerDay) {
+    @NotBlank
+    @Size(min = 5, max = 30)
+    @SafeHtml
+    private String lastName;
+
+    public UserTo(Integer id, String city, String email, String name, String password, String phone, String  lastName ) {
         super(id);
-        this.name = name;
+        this.city = city;
         this.email = email;
-        this.password = password;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
         this.name = name;
+        this.password = password;
+        this.phone = phone;
+        this.lastName = lastName;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public String getEmail() {
@@ -62,21 +70,47 @@ public class UserTo extends BaseTo implements Serializable {
         this.email = email;
     }
 
-    public void setCaloriesPerDay(Integer caloriesPerDay) {
-        this.caloriesPerDay = caloriesPerDay;
+    public String getName() {
+        return name;
     }
 
-    public Integer getCaloriesPerDay() {
-        return caloriesPerDay;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     @Override
     public String toString() {
         return "UserTo{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+                "city='" + city + '\'' +
                 ", email='" + email + '\'' +
-                ", caloriesPerDay='" + caloriesPerDay + '\'' +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", phone='" + phone + '\'' +
+                ", lastName='" + lastName + '\'' +
                 '}';
     }
 }

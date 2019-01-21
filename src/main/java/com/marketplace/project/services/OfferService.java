@@ -12,8 +12,6 @@ public interface OfferService {
 
     void delete(int id, int userId) throws NotFoundException;
 
-    List<Offer> getBetweenDateTimes(LocalDateTime startDateTime, LocalDateTime endDateTime, int userId);
-
     List<Offer> getAll(int userId);
 
     Offer update(Offer offer, int userId) throws NotFoundException;
@@ -22,5 +20,5 @@ public interface OfferService {
 
     Offer getWithUser(int id, int userId);
 
-    void enable(int id, boolean enable);
+    void enable(int id, int userId, boolean visible) throws NotFoundException;
 }

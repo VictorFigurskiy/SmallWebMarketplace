@@ -1,6 +1,6 @@
 package com.marketplace.project.to;
 
-import ru.javawebinar.topjava.HasId;
+import com.marketplace.project.HasId;
 
 public abstract class BaseTo implements HasId {
     protected Integer id;

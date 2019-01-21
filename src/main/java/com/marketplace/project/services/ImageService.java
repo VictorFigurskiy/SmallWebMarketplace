@@ -7,15 +7,15 @@ import java.util.List;
 
 public interface ImageService {
 
-    Image create(Image user);
+    Image create(Image image, int offerId);
 
-    void delete(int id) throws NotFoundException;
+    void delete(int id, int offerId) throws NotFoundException;
 
-    Image get(int id) throws NotFoundException;
+    Image get(int id, int offerId) throws NotFoundException;
 
-    void update(Image image);
+    void update(Image image, int offerId);
 
-    List<Image> getAll();
+    List<Image> getAll(int offerId);
 
-    Image getWithOffer(int id);
+    Image getWithOffer(int id, int offerId);
 }
