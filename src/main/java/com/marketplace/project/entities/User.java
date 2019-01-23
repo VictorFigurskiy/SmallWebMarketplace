@@ -1,20 +1,55 @@
 package com.marketplace.project.entities;
 
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.NamedNativeQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import java.util.List;
+import java.util.Set;
 
 @Entity
+@Table(name = "user")
+@NamedNativeQuery(name = User.FIND_USER_BY_CITY, query = "SELECT user.* FROM user WHERE user.city = ?", resultClass = User.class)
 public class User {
+    public static final String FIND_USER_BY_CITY = "User.findByCity";
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    private String name;
-
+    @Column(name = "FIRST_NAME", length = 30)
+    private String firsName;
+    @Column(name = "LAST_NAME", length = 30)
+    private String secondName;
+    @Column(name = "EMAIL", unique = true, nullable = false, length = 60)
     private String email;
+    @Column(name = "PASSWORD", nullable = false, length = 100)
+    private String password;
+    @Column(name = "PHONE", length = 30)
+    private String phone;
+    @Column(name = "CITY", length = 60)
+    private String city;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
+    @JoinTable(name = "users_roles",
+            joinColumns = @JoinColumn(name = "USER_ID"),
+            inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
+    private Set<UserRole> userRoles;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "seller", cascade = {CascadeType.REMOVE, CascadeType.REFRESH})
+    private List<Offer> sellList;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "buyer", cascade = {CascadeType.REMOVE, CascadeType.REFRESH})
+    private List<Offer> purchasedItems;
 
     public Integer getId() {
         return id;
@@ -24,12 +59,20 @@ public class User {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getFirsName() {
+        return firsName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirsName(String firsName) {
+        this.firsName = firsName;
+    }
+
+    public String getSecondName() {
+        return secondName;
+    }
+
+    public void setSecondName(String secondName) {
+        this.secondName = secondName;
     }
 
     public String getEmail() {
@@ -40,4 +83,51 @@ public class User {
         this.email = email;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public Set<UserRole> getUserRoles() {
+        return userRoles;
+    }
+
+    public void setUserRoles(Set<UserRole> userRoles) {
+        this.userRoles = userRoles;
+    }
+
+    public List<Offer> getSellList() {
+        return sellList;
+    }
+
+    public void setSellList(List<Offer> sellList) {
+        this.sellList = sellList;
+    }
+
+    public List<Offer> getPurchasedItems() {
+        return purchasedItems;
+    }
+
+    public void setPurchasedItems(List<Offer> purchasedItems) {
+        this.purchasedItems = purchasedItems;
+    }
 }
