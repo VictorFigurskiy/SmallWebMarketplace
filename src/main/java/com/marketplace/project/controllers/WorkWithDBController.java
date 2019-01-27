@@ -27,7 +27,7 @@ public class WorkWithDBController {
         // @RequestParam means it is a parameter from the GET or POST request
 
         User user = new User();
-        user.setName(name);
+        user.setFirsName(name);
         user.setEmail(email);
         userService.save(user);
         return "Saved";
