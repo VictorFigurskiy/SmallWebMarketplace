@@ -21,7 +21,7 @@ public class Image {
     private String name;
 
     @ManyToOne
-    private Offer offer; // TODO Maybe this is don't need
+    private Offer imageOffer;
 
     public Integer getId() {
         return id;
@@ -47,11 +47,11 @@ public class Image {
         this.name = name;
     }
 
-    public Offer getOffer() {
-        return offer;
+    public Offer getImageOffer() {
+        return imageOffer;
     }
 
-    public void setOffer(Offer offer) {
-        this.offer = offer;
+    public void setImageOffer(Offer imageOffer) {
+        this.imageOffer = imageOffer;
     }
 }

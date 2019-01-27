@@ -14,7 +14,7 @@ public enum CategoryTypes {
         this.categoryType = categoryType;
     }
 
-    private String getCategoryType() {
+    public String getCategoryType() {
         return categoryType;
     }
 }

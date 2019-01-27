@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -29,16 +30,16 @@ public class Offer {
     private String offerDescription;
     @Column(name = "`CONDITION`", length = 30)
     private String condition;
-    @Column(name = "`VISIBLE`", length = 30)
-    private Boolean isVisible;
-    @Column(name = "`CREATION_TIME`")
+    @Column(name = "`STATUS`", length = 30)
+    private Boolean status;
+    @Column(name = "`CREATION_TIME`", columnDefinition = "timestamp default now()", nullable = false)
     private LocalDateTime creationTimeAndDate;
 
     @ManyToOne
     private Category category;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "offer", cascade = {CascadeType.REMOVE, CascadeType.REFRESH}) // TODO
-    private List<Image> image;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "imageOffer", cascade = {CascadeType.REMOVE, CascadeType.REFRESH})
+    private List<Image> images;
 
     @ManyToOne
     private User seller;
@@ -89,12 +90,12 @@ public class Offer {
         this.condition = condition;
     }
 
-    public Boolean getVisible() {
-        return isVisible;
+    public Boolean getStatus() {
+        return status;
     }
 
-    public void setVisible(Boolean visible) {
-        isVisible = visible;
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
 
     public LocalDateTime getCreationTimeAndDate() {
@@ -113,12 +114,12 @@ public class Offer {
         this.category = category;
     }
 
-    public List<Image> getImage() {
-        return image;
+    public List<Image> getImages() {
+        return images;
     }
 
-    public void setImage(List<Image> image) {
-        this.image = image;
+    public void setImages(List<Image> images) {
+        this.images = images;
     }
 
     public User getSeller() {
