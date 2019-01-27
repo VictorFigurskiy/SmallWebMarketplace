@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 @Controller    // This means that this class is a Controller
 @RequestMapping(path="/demo") // This means URL's start with /demo (after Application path)
 public class WorkWithDBController {
@@ -22,14 +24,17 @@ public class WorkWithDBController {
 
     @GetMapping(path="/add") // Map ONLY GET Requests
     public @ResponseBody
-    String addNewUser (@RequestParam String name, @RequestParam String email) {
+    String addNewUser (@RequestParam String name, @RequestParam String password, @RequestParam String email) {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
 
         User user = new User();
-        user.setName(name);
+        user.setFirst_name(name);
+        user.setPassword(password);
         user.setEmail(email);
+//        user.setEmail(email);
         userService.save(user);
+
         return "Saved";
     }
 
@@ -38,4 +43,17 @@ public class WorkWithDBController {
         // This returns a JSON or XML with the users
         return userService.findAll();
     }
+
+    @GetMapping(path = "/user")
+    public @ResponseBody List<User> getAllUsersByName(@RequestParam String name)
+    {
+        return userService.getAllUsersByName(name);
+    }
+
+    @GetMapping(path = "/user")
+    public @ResponseBody List<User> getAllUsersByEmail(@RequestParam String email)
+    {
+        return userService.getAllByEmail(email);
+    }
+
 }
